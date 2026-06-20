@@ -28,7 +28,7 @@ Woo Product Sync Bridge is built for manual admin-controlled sync workflows. It 
 | WordPress | 5.8+ recommended |
 | WooCommerce | 5.0+ |
 | PHP | 7.4+ |
-| WooCommerce tested up to | 10.7.0 |
+| WooCommerce tested up to | 10.8.1 |
 
 The plugin uses WooCommerce's bundled Action Scheduler. No third-party plugin is required.
 

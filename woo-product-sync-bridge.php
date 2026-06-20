@@ -3,20 +3,20 @@
  * Plugin Name:     Woo Product Sync Bridge
  * Plugin URI:      https://github.com/ncccpkaj/woo-product-sync-bridge
  * Description:     Securely transfer, replace, and update WooCommerce simple and variable products between connected stores using authenticated REST endpoints and Action Scheduler.
- * Version:         1.0.0
+ * Version:         1.0.1
  * Author:          Nayeem Hasan
  * Text Domain:     woo-product-sync-bridge
  * Requires at least: 5.8
  * Requires PHP:    7.4
  * WC requires at least: 5.0
- * WC tested up to: 10.7.0
+ * WC tested up to: 10.8.1
  * License:         GPL-2.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPSB_VERSION', '1.0.0' );
+define( 'WPSB_VERSION', '1.0.1' );
 define( 'WPSB_FILE', __FILE__ );
 define( 'WPSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WPSB_URL', plugin_dir_url( __FILE__ ) );
@@ -28,6 +28,13 @@ define( 'WPSB_MIN_WC', '5.0' );
 define( 'WPSB_MAX_REST_BODY_BYTES', 100663296 ); // 96 MB.
 
 require_once WPSB_PATH . 'includes/class-wpsb-installer.php';
+
+add_action( 'before_woocommerce_init', 'wpsb_declare_woocommerce_feature_compatibility' );
+function wpsb_declare_woocommerce_feature_compatibility() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
 
 register_activation_hook( __FILE__, array( 'WPSB_Installer', 'activate' ) );
 
